@@ -75,7 +75,7 @@ const Input = styled.input`
   font-size: 1.8rem;
   width: 100%;
 `;
-const Submit = styled.button`
+const Submit = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,7 +166,12 @@ function SignUp() {
               )}
             </InputField>
           </Box>
-          <Submit onSubmit={(e) => handleSubmit(e)}>Sign In</Submit>
+          <Submit
+            onClick={(e) => handleSubmit(e)}
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            Sign In
+          </Submit>
         </Form>
       </SignUpPage>
     </SignUpStyle>
