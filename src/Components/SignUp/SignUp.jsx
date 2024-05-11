@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsAuth, setToken } from "../../Slices/AppSlice";
+import { setInitail, setIsAuth, setToken } from "../../Slices/AppSlice";
 import { PiEyeLight } from "react-icons/pi";
 import { PiEyeSlash } from "react-icons/pi";
 import useAuthSignIn from "../../hooks/useAuthSignIn";
@@ -121,6 +121,10 @@ const LoadingStyle = styled.div`
   background-color: var(--notification_hover_color);
   backdrop-filter: blur(5px);
 `;
+const Error = styled.span`
+  font-size: 3rem;
+  color: var(--black_text_color);
+`;
 const IconStyle = {
   fontSize: "2rem",
   color: "var(--ship_hover_color)",
@@ -134,18 +138,18 @@ function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuth } = useSelector((state) => state.appData);
+  const { isAuth, initial } = useSelector((state) => state.appData);
 
   const { data, setData, isFetched, isLoading } = useAuthSignIn();
 
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(setInitail(true));
     setData(id, password);
-    isFetched && reset();
-  }
-  function reset() {
-    setId("");
-    setPassword("");
+    if (isFetched) {
+      setId("");
+      setPassword("");
+    }
   }
 
   useEffect(() => {
@@ -155,7 +159,6 @@ function SignUp() {
 
   useEffect(() => {
     isAuth && navigate("/");
-    console.log(isAuth);
   }, [isAuth, navigate]);
   return (
     <SignUpStyle>
@@ -208,11 +211,16 @@ function SignUp() {
           </Submit>
         </Form>
       </SignUpPage>
-      {isLoading && (
+      {isLoading && initial && (
         <LoadingStyle>
           <Loading />
         </LoadingStyle>
       )}
+      {/* {error && initial && isFetched && (
+        <LoadingStyle>
+          <Error>Something went wrong): 😢</Error>
+        </LoadingStyle>
+      )} */}
     </SignUpStyle>
   );
 }

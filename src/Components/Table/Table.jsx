@@ -151,14 +151,14 @@ function TableRow({ index, data, column }) {
             )}
           </Name>
           <Name className="fourRow">{`${
-            data.lastMaintenanceDate.split("/")[0]
+            data.lastMaintenanceDate.split(" / ")[0]
           }th ${data.lastMaintenanceDate.split("/")[1]} ${
-            data.lastMaintenanceDate.split("/")[2]
+            data.lastMaintenanceDate.split(" / ")[2]
           }`}</Name>
           <Name className="fourRow">{`${
-            data.nextMaintenanceDate.split("/")[0]
+            data.nextMaintenanceDate.split(" / ")[0]
           }th ${data.nextMaintenanceDate.split("/")[1]} ${
-            data.nextMaintenanceDate.split("/")[2]
+            data.nextMaintenanceDate.split(" / ")[2]
           }`}</Name>
         </>
       )}

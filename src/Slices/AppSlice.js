@@ -4,6 +4,7 @@ const initialState = {
   isAuth: false,
   notify: false,
   token: "",
+  initial: false,
 };
 
 const AppSlice = createSlice({
@@ -19,8 +20,11 @@ const AppSlice = createSlice({
     setToken(state, action) {
       state.token = action.payload;
     },
+    setInitail(state, action) {
+      state.initial = action.payload;
+    },
   },
 });
 
-export const { setIsAuth, setNotify, setToken } = AppSlice.actions;
+export const { setIsAuth, setNotify, setToken, setInitail } = AppSlice.actions;
 export default AppSlice.reducer;

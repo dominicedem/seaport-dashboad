@@ -12,7 +12,7 @@ import {
   setSurveillance,
   setTracking,
 } from "../../Slices/SidebarSlice";
-import { setIsAuth, setToken } from "../../Slices/AppSlice";
+import { setInitail, setIsAuth, setToken } from "../../Slices/AppSlice";
 
 const Sidebarbox = styled.div`
   display: flex;
@@ -90,9 +90,11 @@ const linkStyle = {
 function SideBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   function logout() {
     dispatch(setIsAuth(false));
     dispatch(setToken(""));
+    dispatch(setInitail(false));
     navigate("/login");
   }
   return (
