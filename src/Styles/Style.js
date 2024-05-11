@@ -99,7 +99,7 @@ body {
 }
 
 .threeRow {
-  width: 33.3%
+  width: 25%
 }
 .fourRow {
   width: 25%
@@ -205,6 +205,18 @@ input[type=range]:focus::-ms-fill-upper {
   background-color:transparent;
 }
 
+.spinner {
+  animation: 2.5s spin infinite linear ;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(180deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
 
 `;
 export default GlobalStyle;

@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { CgProfile } from "react-icons/cg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setIsAuth } from "../Slices/AppSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsAuth, setToken } from "../../Slices/AppSlice";
 import { PiEyeLight } from "react-icons/pi";
 import { PiEyeSlash } from "react-icons/pi";
+import useAuthSignIn from "../../hooks/useAuthSignIn";
+import Loading from "../Loading/Loading";
 
 const SignUpStyle = styled.div`
   display: grid;
@@ -13,6 +15,7 @@ const SignUpStyle = styled.div`
   height: 100vh;
   width: 100vw;
   justify-content: center;
+  position: relative;
 `;
 const Description = styled.div`
   background: linear-gradient(
@@ -32,6 +35,7 @@ const SignUpPage = styled.div`
   gap: 1.5rem;
   align-self: center;
   width: 60%;
+  position: relative;
 `;
 const Header = styled.h1`
   font-weight: bold;
@@ -105,6 +109,18 @@ const Box = styled.div`
   gap: 0.6rem;
   width: 100%;
 `;
+const LoadingStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  background-color: var(--notification_hover_color);
+  backdrop-filter: blur(5px);
+`;
 const IconStyle = {
   fontSize: "2rem",
   color: "var(--ship_hover_color)",
@@ -114,15 +130,32 @@ function SignUp() {
   const [id, setId] = useState();
   const [reveal, setReveal] = useState();
   const [password, setPassword] = useState();
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isAuth } = useSelector((state) => state.appData);
+
+  const { data, setData, isFetched, isLoading } = useAuthSignIn();
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (id === "12345" && password === "password") {
-      navigate("/");
-      dispatch(setIsAuth(true));
-    }
+    setData(id, password);
+    isFetched && reset();
   }
+  function reset() {
+    setId("");
+    setPassword("");
+  }
+
+  useEffect(() => {
+    data?.status === "success" && dispatch(setIsAuth(true));
+    data?.status === "success" && dispatch(setToken(data.token));
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    isAuth && navigate("/");
+  }, [isAuth, navigate]);
   return (
     <SignUpStyle>
       <Description></Description>
@@ -174,6 +207,11 @@ function SignUp() {
           </Submit>
         </Form>
       </SignUpPage>
+      {isLoading && (
+        <LoadingStyle>
+          <Loading />
+        </LoadingStyle>
+      )}
     </SignUpStyle>
   );
 }

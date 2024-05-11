@@ -161,13 +161,14 @@ function Tracking() {
   const [containerNo, setContainerNo] = useState();
   const { trackSuccess, trackFail } = useSelector((state) => state.trackData);
   const dispatch = useDispatch();
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!containerNo) return;
-    setContainerNo("");
-    Number(containerNo) === 12345
-      ? dispatch(setTrackSuccess(true))
-      : dispatch(setTrackFail(true));
+    // setContainerNo("");
+    // Number(containerNo) === 12345
+    //   ? dispatch(setTrackSuccess(true))
+    //   : dispatch(setTrackFail(true));
   }
   function handleOverlay(e) {
     if (e.target.className.split(" ").includes("overLay")) {

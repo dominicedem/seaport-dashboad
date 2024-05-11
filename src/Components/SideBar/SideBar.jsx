@@ -4,15 +4,15 @@ import { MdDashboard } from "react-icons/md";
 import { PiSecurityCameraBold } from "react-icons/pi";
 import { GiAutoRepair } from "react-icons/gi";
 import { IoMdExit } from "react-icons/io";
-
-import { Link, NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setMaintainance,
   setOverview,
   setSurveillance,
   setTracking,
 } from "../../Slices/SidebarSlice";
+import { setIsAuth, setToken } from "../../Slices/AppSlice";
 
 const Sidebarbox = styled.div`
   display: flex;
@@ -89,6 +89,12 @@ const linkStyle = {
 
 function SideBar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function logout() {
+    dispatch(setIsAuth(false));
+    dispatch(setToken(""));
+    navigate("/login");
+  }
   return (
     <Sidebarbox>
       <List>
@@ -141,14 +147,12 @@ function SideBar() {
           </SidebarList>
         </NavLink>
       </List>
-      <Link style={linkStyle} to="">
-        <SidebarList type="exit">
-          <IconBox>
-            <IoMdExit style={exitIconStyle} />
-          </IconBox>
-          Sign out
-        </SidebarList>
-      </Link>
+      <SidebarList type="exit" onClick={() => logout()}>
+        <IconBox>
+          <IoMdExit style={exitIconStyle} />
+        </IconBox>
+        Sign out
+      </SidebarList>
     </Sidebarbox>
   );
 }

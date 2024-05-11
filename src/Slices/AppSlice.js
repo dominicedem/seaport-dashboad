@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isAuth: false,
   notify: false,
+  token: "",
 };
 
 const AppSlice = createSlice({
@@ -15,8 +16,11 @@ const AppSlice = createSlice({
     setNotify(state, action) {
       state.notify = action.payload;
     },
+    setToken(state, action) {
+      state.token = action.payload;
+    },
   },
 });
 
-export const { setIsAuth, setNotify } = AppSlice.actions;
+export const { setIsAuth, setNotify, setToken } = AppSlice.actions;
 export default AppSlice.reducer;

@@ -10,7 +10,7 @@ import Tracking from "./Components/Tracking/Tracking";
 import Terminal from "./Components/Terminal/Terminal";
 import GlobalStyle from "./Styles/Style";
 import ErrorRoute from "./Error/ErrorRoute";
-import SignUp from "./SignUp/SignUp";
+import SignUp from "./Components/SignUp/SignUp";
 import Authenticate from "./Layout/Authenticate";
 import appReducer from "./Slices/AppSlice";
 import sideBarReducer from "./Slices/SidebarSlice";

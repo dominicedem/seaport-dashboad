@@ -31,7 +31,7 @@ const Status = styled.h4`
 `;
 const Row = styled.div`
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   padding-bottom: 1rem;
@@ -41,10 +41,7 @@ const Row = styled.div`
       ? "1.5px solid var(--theme_color)"
       : "1px solid var(--ship_hover_color)"};
 `;
-const Name = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+const Name = styled.span`
   font-size: 1.6rem;
   color: var(--ship_row_text_color);
 `;
@@ -55,63 +52,52 @@ const Faulty = styled.p`
 
 const TableData = [
   {
-    body: ["Terminals", "Status", "Container ID"],
+    body: ["Crane A1", "Filled", "abcd1234567, efgh1234567"],
   },
   {
-    body: ["Crane A", "Filled", "abcd1234567, efgh1234567"],
+    body: ["Crane B2", "Empty", "None"],
   },
   {
-    body: ["Crane B", "Empty", "None"],
+    body: ["Crane C1", "Filled", "abcd1234567, efgh1234567"],
   },
   {
-    body: ["Crane C", "Filled", "abcd1234567, efgh1234567"],
+    body: ["Crane C2", "Filled", "abcd1234567, efgh1234567"],
   },
   {
-    body: ["Crane D", "Filled", "abcd1234567, efgh1234567"],
+    body: ["Crane A2", "Empty", "None"],
   },
   {
-    body: ["Crane E", "Empty", "None"],
+    body: ["Crane B1", "Filled", "abcd1234567, efgh1234567"],
   },
   {
-    body: ["Crane F", "Filled", "abcd1234567, efgh1234567"],
-  },
-  {
-    body: ["Crane G", "Good", "None"],
+    body: ["Crane B4", "Good", "None"],
   },
 ];
 const TableData2 = [
   {
-    body: [
-      "Machine",
-      "Status",
-      "Last Maintainance date",
-      "Predicted maintaince date",
-    ],
+    body: ["Crane A", "Faulty", "29th january 2024", "29th march 2024"],
   },
   {
-    body: ["Crane ", "Faulty", "29th january 2024", "29th march 2024"],
+    body: ["Crane B", "Good", "15th july 2023", "20th january 2024"],
   },
   {
-    body: ["Crane ", "Good", "15th july 2023", "20th january 2024"],
+    body: ["Crane C", "Faulty", "29th january 2024", "29th march 2024"],
   },
   {
-    body: ["Crane ", "Faulty", "29th january 2024", "29th march 2024"],
+    body: ["Crane D", "Faulty", "29th january 2024", "29th march 2024"],
   },
   {
-    body: ["Crane ", "Faulty", "29th january 2024", "29th march 2024"],
+    body: ["Crane E", "Good", "15th july 2023", "20th january 2024"],
   },
   {
-    body: ["Crane ", "Good", "15th july 2023", "20th january 2024"],
+    body: ["Crane F", "Faulty", "29th january 2024", "29th march 2024"],
   },
   {
-    body: ["Crane ", "Faulty", "29th january 2024", "29th march 2024"],
-  },
-  {
-    body: ["Crane ", "Good", "15th july 2023", "20th january 2024"],
+    body: ["Crane G", "Good", "15th july 2023", "20th january 2024"],
   },
 ];
 
-function Table({ children, column }) {
+function Table({ children, column, data }) {
   return (
     <TableStyle>
       <Header>{children}</Header>
@@ -120,12 +106,31 @@ function Table({ children, column }) {
         <Status type={"date"}>Updated at 17th january 2024</Status>
       </TableBox>
       <TableBox>
+        {column === 4 && (
+          <>
+            <Row type="head">
+              <Name className="fourRow">Machine</Name>
+              <Name className="fourRow">Status</Name>
+              <Name className="fourRow">Last maintainance date</Name>
+              <Name className="fourRow">predicted maintainance date</Name>
+            </Row>
+          </>
+        )}
+        {column === 3 && (
+          <>
+            <Row type="head">
+              <Name className="threeRow">Name</Name>
+              <Name className="threeRow">Status</Name>
+              <Name className="threeRow">Container ID</Name>
+            </Row>
+          </>
+        )}
         {column === 3
           ? TableData.map((val, ind) => (
               <TableRow key={ind} data={val.body} index={ind} />
             ))
-          : TableData2.map((val, ind) => (
-              <TableRow key={ind} data={val.body} index={ind} column={column} />
+          : data?.map((val, ind) => (
+              <TableRow key={ind} data={val} index={ind} column={column} />
             ))}
       </TableBox>
     </TableStyle>
@@ -134,13 +139,29 @@ function Table({ children, column }) {
 
 function TableRow({ index, data, column }) {
   return (
-    <Row type={index === 0 ? "head" : ""}>
-      {data.map((val, ind) => (
-        <Name className={column === 3 ? "threeRow" : "fourRow"} key={ind}>
-          {val === "Faulty" ? <Faulty>{val}</Faulty> : val}
-          {/* {column === 4 && index !== 0 && ind === 3 && <Due>- Due</Due>} */}
-        </Name>
-      ))}
+    <Row>
+      {column === 4 && (
+        <>
+          <Name className="fourRow">{data.name}</Name>
+          <Name className="fourRow">
+            {data.status === "Good" ? (
+              `${data.status}`
+            ) : (
+              <Faulty>{data.status}</Faulty>
+            )}
+          </Name>
+          <Name className="fourRow">{`${
+            data.lastMaintenanceDate.split("/")[0]
+          }th ${data.lastMaintenanceDate.split("/")[1]} ${
+            data.lastMaintenanceDate.split("/")[2]
+          }`}</Name>
+          <Name className="fourRow">{`${
+            data.nextMaintenanceDate.split("/")[0]
+          }th ${data.nextMaintenanceDate.split("/")[1]} ${
+            data.nextMaintenanceDate.split("/")[2]
+          }`}</Name>
+        </>
+      )}
     </Row>
   );
 }
