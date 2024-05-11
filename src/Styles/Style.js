@@ -211,7 +211,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 @keyframes spin {
   0% {
-    transform: rotate(180deg)
+    transform: rotate(0deg)
   }
   100% {
     transform: rotate(360deg)
