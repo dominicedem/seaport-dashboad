@@ -50,7 +50,7 @@ function App() {
                   </Authenticate>
                 }
               >
-                <Route path="/" element={<Overview />} />
+                <Route index element={<Overview />} />
                 <Route path="/maintainance" element={<Maintainance />} />
                 <Route path="/terminal" element={<Terminal />} />
                 <Route path="/surveillance" element={<Surveillance />} />

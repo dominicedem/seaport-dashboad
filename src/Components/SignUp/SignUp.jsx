@@ -155,6 +155,7 @@ function SignUp() {
 
   useEffect(() => {
     isAuth && navigate("/");
+    console.log(isAuth);
   }, [isAuth, navigate]);
   return (
     <SignUpStyle>
