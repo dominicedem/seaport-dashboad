@@ -122,9 +122,10 @@ const LoadingStyle = styled.div`
   backdrop-filter: blur(5px);
 `;
 const Error = styled.span`
-  font-size: 3rem;
-  color: var(--black_text_color);
+  font-size: 1.4rem;
+  color: var(--red_exit_color);
 `;
+
 const IconStyle = {
   fontSize: "2rem",
   color: "var(--ship_hover_color)",
@@ -149,6 +150,7 @@ function SignUp() {
     if (isFetched) {
       setId("");
       setPassword("");
+      setTimeout(() => dispatch(setInitail(false)), [4000]);
     }
   }
 
@@ -202,6 +204,12 @@ function SignUp() {
                 />
               )}
             </InputField>
+            {!isLoading &&
+              initial &&
+              isFetched &&
+              data?.status !== "success" && (
+                <Error>Incorrect login credentials</Error>
+              )}
           </Box>
           <Submit
             onClick={(e) => handleSubmit(e)}
@@ -216,11 +224,6 @@ function SignUp() {
           <Loading />
         </LoadingStyle>
       )}
-      {/* {error && initial && isFetched && (
-        <LoadingStyle>
-          <Error>Something went wrong): 😢</Error>
-        </LoadingStyle>
-      )} */}
     </SignUpStyle>
   );
 }

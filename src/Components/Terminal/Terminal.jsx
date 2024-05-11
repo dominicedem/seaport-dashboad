@@ -9,7 +9,7 @@ const TerminalStyle = styled.div`
   flex-direction: column;
   align-items: center;
   width: 94%;
-  height: 92%;
+  height: 82.8vh;
   background-color: var(--sidebar_background_color);
   border-radius: 0.7rem;
   padding: 2.5rem;
@@ -35,7 +35,7 @@ function Terminal() {
   const { data, isLoading } = useTerminal(token);
   console.log(data);
   return (
-    <TerminalStyle>
+    <TerminalStyle className={data?.data.length > 7 && "scroll"}>
       <Table data={data?.data} column={3}>
         Terminals And Container
       </Table>

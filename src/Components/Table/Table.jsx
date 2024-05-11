@@ -119,15 +119,15 @@ function Table({ children, column, data }) {
         {column === 3 && (
           <>
             <Row type="head">
-              <Name className="threeRow">Name</Name>
+              <Name className="threeRow">Terminals</Name>
               <Name className="threeRow">Status</Name>
               <Name className="threeRow">Container ID</Name>
             </Row>
           </>
         )}
         {column === 3
-          ? TableData.map((val, ind) => (
-              <TableRow key={ind} data={val.body} index={ind} />
+          ? data?.map((val, ind) => (
+              <TableRow key={ind} data={val} index={ind} />
             ))
           : data?.map((val, ind) => (
               <TableRow key={ind} data={val} index={ind} column={column} />
@@ -140,7 +140,7 @@ function Table({ children, column, data }) {
 function TableRow({ index, data, column }) {
   return (
     <Row>
-      {column === 4 && (
+      {column === 4 ? (
         <>
           <Name className="fourRow">{data.name}</Name>
           <Name className="fourRow">
@@ -160,6 +160,23 @@ function TableRow({ index, data, column }) {
           }th ${data.nextMaintenanceDate.split("/")[1]} ${
             data.nextMaintenanceDate.split(" / ")[2]
           }`}</Name>
+        </>
+      ) : (
+        <>
+          <Name className="threeRow">Terminal {data.name}</Name>
+          <Name className="threeRow">
+            {data.containers.length > 0 ? `Filled` : <Faulty>Empty</Faulty>}
+          </Name>
+          <Name className="threeRow">
+            {data.containers.length > 0
+              ? data.containers.map(
+                  (val, ind) =>
+                    `${val.containerNumber}${
+                      ind === data.containers.length - 1 ? "" : ","
+                    }`
+                )
+              : "none"}
+          </Name>
         </>
       )}
     </Row>

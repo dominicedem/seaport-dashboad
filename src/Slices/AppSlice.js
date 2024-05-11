@@ -5,6 +5,7 @@ const initialState = {
   notify: false,
   token: "",
   initial: false,
+  isTrackId: false,
 };
 
 const AppSlice = createSlice({
@@ -23,8 +24,12 @@ const AppSlice = createSlice({
     setInitail(state, action) {
       state.initial = action.payload;
     },
+    setTrackId(state, action) {
+      state.isTrackId = action.payload;
+    },
   },
 });
 
-export const { setIsAuth, setNotify, setToken, setInitail } = AppSlice.actions;
+export const { setIsAuth, setTrackId, setNotify, setToken, setInitail } =
+  AppSlice.actions;
 export default AppSlice.reducer;

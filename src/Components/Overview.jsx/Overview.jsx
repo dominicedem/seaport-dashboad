@@ -1,17 +1,18 @@
 import styled from "styled-components";
 import { FaShip } from "react-icons/fa6";
-import { useSelector } from "react-redux";
 
 const OverviewStyle = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  margin: 2rem auto;
   align-items: center;
+  grid-template-columns: 1fr 1fr;
   width: 94%;
+  height: 82.8vh;
   background-color: var(--sidebar_background_color);
   border-radius: 0.7rem;
   padding: 2.5rem;
   gap: 3rem;
-  margin: 2rem auto;
+  box-shadow: 0 0.5rem 1rem 0.5rem #0000000a;
 `;
 const Header = styled.h1`
   display: flex;

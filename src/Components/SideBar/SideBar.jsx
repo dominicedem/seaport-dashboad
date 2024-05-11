@@ -13,6 +13,7 @@ import {
   setTracking,
 } from "../../Slices/SidebarSlice";
 import { setInitail, setIsAuth, setToken } from "../../Slices/AppSlice";
+import { setTrackFail } from "../../Slices/TrackSlice";
 
 const Sidebarbox = styled.div`
   display: flex;
@@ -89,13 +90,12 @@ const linkStyle = {
 
 function SideBar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   function logout() {
     dispatch(setIsAuth(false));
     dispatch(setToken(""));
     dispatch(setInitail(false));
-    navigate("/login");
+    dispatch(setTrackFail(false));
   }
   return (
     <Sidebarbox>

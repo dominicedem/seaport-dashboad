@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../Button/Button";
@@ -7,6 +7,9 @@ import { RxCross2 } from "react-icons/rx";
 import Modal from "./Modal";
 import { Link } from "react-router-dom";
 import { setTerminal } from "../../Slices/SidebarSlice";
+import useTrack from "../../hooks/useTrack";
+import Loading from "../Loading/Loading";
+import { setTrackId } from "../../Slices/AppSlice";
 
 const TrackingStyle = styled.div`
   display: flex;
@@ -148,13 +151,25 @@ const CancelBox = styled.div`
   align-self: flex-end;
   cursor: pointer;
 `;
+const LoadingStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--notification_hover_color);
+  backdrop-filter: blur(4px);
+`;
 const iconStyle = {
   fontSize: "2rem",
   color: "var(--red_exit_color)",
 };
 const linkStyle = {
+  width: "fit-content",
   textDecoration: "none",
-  width: "100%",
   color: "var(--sidebar_background_color)",
 };
 function Tracking() {
@@ -162,13 +177,15 @@ function Tracking() {
   const { trackSuccess, trackFail } = useSelector((state) => state.trackData);
   const dispatch = useDispatch();
 
+  const { isTrackId } = useSelector((state) => state.appData);
+
+  const { setTrack, data, isLoading, isFetched } = useTrack();
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!containerNo) return;
-    // setContainerNo("");
-    // Number(containerNo) === 12345
-    //   ? dispatch(setTrackSuccess(true))
-    //   : dispatch(setTrackFail(true));
+    setTrack(containerNo);
+    dispatch(setTrackId(true));
   }
   function handleOverlay(e) {
     if (e.target.className.split(" ").includes("overLay")) {
@@ -181,19 +198,34 @@ function Tracking() {
       ? dispatch(setTrackSuccess(false))
       : dispatch(setTrackFail(false));
   }
+
+  useEffect(() => {
+    if (!isLoading && isFetched && data?.status === "success" && isTrackId) {
+      data?.status === "success" && dispatch(setTrackSuccess(true));
+      setContainerNo("");
+      dispatch(setTrackId(false));
+    } else if (
+      !isLoading &&
+      isFetched &&
+      data?.status === "error" &&
+      isTrackId
+    ) {
+      dispatch(setTrackFail(true));
+      setContainerNo("");
+      dispatch(setTrackId(false));
+    }
+  }, [isLoading, isFetched, data?.status, dispatch, isTrackId]);
   return (
     <TrackingStyle>
       <HeaderBox>
         <HeadText>Track your container and shipment</HeadText>
-        <Button type="normal">
-          <Link
-            onClick={() => dispatch(setTerminal(true))}
-            style={linkStyle}
-            to="/terminal"
-          >
-            Terminal
-          </Link>
-        </Button>
+        <Link
+          onClick={() => dispatch(setTerminal(true))}
+          style={linkStyle}
+          to="/terminal"
+        >
+          <Button type="normal">Terminal</Button>
+        </Link>
       </HeaderBox>
       <TrackingPage>
         <HeadBox>
@@ -223,17 +255,17 @@ function Tracking() {
           </Submit>
         </Form>
       </TrackingPage>
-      {trackSuccess && (
+      {trackSuccess && !isLoading && isFetched && (
         <TrackOverlay onClick={(e) => handleOverlay(e)} className="overLay">
           <TrackBox onClick={(e) => handleOverlay(e)} className="overLay">
             <CancelBox onClick={() => handleClose("success")}>
               <RxCross2 style={iconStyle} />
             </CancelBox>
-            <Modal type="success" />
+            <Modal data={data?.data} type="success" />
           </TrackBox>
         </TrackOverlay>
       )}
-      {trackFail && (
+      {trackFail && !isLoading && isFetched && (
         <TrackOverlay onClick={(e) => handleOverlay(e)} className="overLay">
           <TrackBox onClick={(e) => handleOverlay(e)} className="overLay">
             <CancelBox onClick={() => handleClose("fail")}>
@@ -242,6 +274,11 @@ function Tracking() {
             <Modal type="fail" />
           </TrackBox>
         </TrackOverlay>
+      )}
+      {isLoading && isTrackId && (
+        <LoadingStyle>
+          <Loading />
+        </LoadingStyle>
       )}
     </TrackingStyle>
   );

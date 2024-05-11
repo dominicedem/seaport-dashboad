@@ -77,7 +77,7 @@ const ButtonBox = styled.div`
   justify-self: center;
   margin-top: 2.5rem;
 `;
-function Modal({ type }) {
+function Modal({ type, data }) {
   const dispatch = useDispatch();
   function handleClose() {
     type === "success"
@@ -99,25 +99,29 @@ function Modal({ type }) {
           <Box>
             <Label>ID NUMBER</Label>
             <InputField>
-              <Input disabled={true} type="text" value="Test" />
+              <Input disabled={true} type="text" value={data?.id} />
             </InputField>
           </Box>
           <Box>
             <Label>LOCATION</Label>
             <InputField>
-              <Input disabled={true} type="text" value="Test" />
+              <Input disabled={true} type="text" value={data?.location.name} />
             </InputField>
           </Box>
           <Box>
             <Label>EXAMINATION STATUS</Label>
             <InputField>
-              <Input disabled={true} type="text" value="Test" />
+              <Input
+                disabled={true}
+                type="text"
+                value={data?.examinationStatus}
+              />
             </InputField>
           </Box>
           <Box>
             <Label>DAYS SPENT ON PORT</Label>
             <InputField>
-              <Input disabled={true} type="text" value="Test" />
+              <Input disabled={true} type="text" value={data?.duration} />
             </InputField>
           </Box>
         </Form>

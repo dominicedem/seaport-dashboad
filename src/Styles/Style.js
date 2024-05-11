@@ -107,6 +107,12 @@ body {
 .one:hover {
   background: var(--theme_color_light);
 }
+
+.scroll {
+  overflow-y: scroll;
+}
+
+
 input[type=range] {
   height: 40px;
   -webkit-appearance: none;

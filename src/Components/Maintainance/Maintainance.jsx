@@ -9,7 +9,7 @@ const MaintainanceStyle = styled.div`
   flex-direction: column;
   align-items: center;
   width: 94%;
-  height: 92%;
+  height: 82.8vh;
   background-color: var(--sidebar_background_color);
   border-radius: 0.7rem;
   padding: 2.5rem;
@@ -35,7 +35,7 @@ function Maintainance() {
   const { data, isLoading } = useMaintainance(token);
   console.log(data);
   return (
-    <MaintainanceStyle>
+    <MaintainanceStyle className={data?.data.length > 7 && "scroll"}>
       <Table data={data?.data} column={4}>
         Check Maintainance Status
       </Table>
