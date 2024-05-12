@@ -11,7 +11,7 @@ const OverviewStyle = styled.div`
   background-color: var(--sidebar_background_color);
   border-radius: 0.7rem;
   padding: 2.5rem;
-  gap: 3rem;
+  gap: 2rem;
   box-shadow: 0 0.5rem 1rem 0.5rem #0000000a;
 `;
 const Header = styled.h1`
@@ -44,8 +44,8 @@ const SubHeader = styled.p`
 const MoreDetails = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-top: -10px;
+  gap: 1.2rem;
+  margin-top: -15px;
 `;
 const TimeDes = styled.div`
   display: flex;
@@ -53,22 +53,29 @@ const TimeDes = styled.div`
   align-items: start;
   justify-content: space-between;
   color: var(--theme_color);
-  width: 15%;
-  font-size: 1.5rem;
-`;
-const Time = styled.p`
+  width: fit-content;
   font-size: 1.6rem;
+`;
+const Time = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  color: var(--theme_color);
+`;
+const Location = styled.span`
+  font-size: 1.4rem;
   color: var(--theme_color);
 `;
 const Line = styled.div`
-  width: 70%;
+  width: 100%;
   background-color: var(--ship_hover_color);
   height: 1px;
   margin-top: -15px;
 `;
 const ShipStyle = styled.div`
   justify-self: ${(props) => (props.type === "lastchild" ? "end" : "start")};
-  width: 65%;
+  width: 90%;
 `;
 const iconstyle = {
   fontSize: "2rem",
@@ -101,52 +108,76 @@ function ShipDetails({ type }) {
         </Header>
       )}
       <Details>
-        <SubHeader>Ship name</SubHeader>
+        <SubHeader>{!type ? "Nigerian Spirit" : "Naija Pride"}</SubHeader>
         <MoreDetails>
           <TimeDes>
-            <Time>11:00</Time>
             Departure
+            <Time>
+              02/05/24 <p>11:00AM</p>
+            </Time>
+            <Location>IKEJA</Location>
           </TimeDes>
           <Line></Line>
           <TimeDes>
-            <Time>07:30</Time>
             Arrival
+            <Time>
+              12/10/24 <p>07:30AM</p>
+            </Time>
+            <Location>ISOLO</Location>
           </TimeDes>
         </MoreDetails>
-        <SubHeader>Ship name</SubHeader>
+        <SubHeader>{!type ? "Lagos Voyager" : "Benin Majesty"}</SubHeader>
         <MoreDetails>
           <TimeDes>
-            <Time>04:00</Time>
             Departure
+            <Time>
+              20/11/24 <p>04:00PM</p>
+            </Time>
+            <Location>IKEJA</Location>
           </TimeDes>
           <Line></Line>
           <TimeDes>
-            <Time>01:25</Time>
             Arrival
+            <Time>
+              02/05/24 <p>01:25AM</p>
+            </Time>
+            <Location>ISOLO</Location>
           </TimeDes>
         </MoreDetails>
-        <SubHeader>Ship name</SubHeader>
+        <SubHeader>{!type ? "Atlantic Explorer" : "Delta Star"}</SubHeader>
         <MoreDetails>
           <TimeDes>
-            <Time>10:00</Time>
             Departure
+            <Time>
+              21/03/24 <p>10:00PM</p>
+            </Time>
+            <Location>IKEJA</Location>
           </TimeDes>
           <Line></Line>
           <TimeDes>
-            <Time>03:30</Time>
             Arrival
+            <Time>
+              02/05/24 <p>03:30AM</p>
+            </Time>
+            <Location>ISOLO</Location>
           </TimeDes>
         </MoreDetails>
-        <SubHeader>Ship name</SubHeader>
+        <SubHeader>{!type ? "Abuja Pearl" : "Port Harcourt Titan"}</SubHeader>
         <MoreDetails>
           <TimeDes>
-            <Time>02:01</Time>
             Departure
+            <Time>
+              30/10/24 <p>02:01PM</p>
+            </Time>
+            <Location>IKEJA</Location>
           </TimeDes>
           <Line></Line>
           <TimeDes>
-            <Time>08:20</Time>
             Arrival
+            <Time>
+              12/09/24 <p>08:20AM</p>
+            </Time>
+            <Location>ISOLO</Location>
           </TimeDes>
         </MoreDetails>
       </Details>

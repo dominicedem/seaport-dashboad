@@ -50,53 +50,6 @@ const Faulty = styled.p`
   color: var(--red_exit_color);
 `;
 
-const TableData = [
-  {
-    body: ["Crane A1", "Filled", "abcd1234567, efgh1234567"],
-  },
-  {
-    body: ["Crane B2", "Empty", "None"],
-  },
-  {
-    body: ["Crane C1", "Filled", "abcd1234567, efgh1234567"],
-  },
-  {
-    body: ["Crane C2", "Filled", "abcd1234567, efgh1234567"],
-  },
-  {
-    body: ["Crane A2", "Empty", "None"],
-  },
-  {
-    body: ["Crane B1", "Filled", "abcd1234567, efgh1234567"],
-  },
-  {
-    body: ["Crane B4", "Good", "None"],
-  },
-];
-const TableData2 = [
-  {
-    body: ["Crane A", "Faulty", "29th january 2024", "29th march 2024"],
-  },
-  {
-    body: ["Crane B", "Good", "15th july 2023", "20th january 2024"],
-  },
-  {
-    body: ["Crane C", "Faulty", "29th january 2024", "29th march 2024"],
-  },
-  {
-    body: ["Crane D", "Faulty", "29th january 2024", "29th march 2024"],
-  },
-  {
-    body: ["Crane E", "Good", "15th july 2023", "20th january 2024"],
-  },
-  {
-    body: ["Crane F", "Faulty", "29th january 2024", "29th march 2024"],
-  },
-  {
-    body: ["Crane G", "Good", "15th july 2023", "20th january 2024"],
-  },
-];
-
 function Table({ children, column, data }) {
   return (
     <TableStyle>

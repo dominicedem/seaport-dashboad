@@ -33,7 +33,6 @@ const LoadingStyle = styled.div`
 function Maintainance() {
   const { token } = useSelector((state) => state.appData);
   const { data, isLoading } = useMaintainance(token);
-  console.log(data);
   return (
     <MaintainanceStyle className={data?.data.length > 7 && "scroll"}>
       <Table data={data?.data} column={4}>

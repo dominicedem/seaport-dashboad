@@ -5,7 +5,7 @@ const BASE_URL = import.meta.env.VITE_TRACK;
 export default function useTrack() {
   const [containerNumbers, setContainerNumbers] = useState("");
 
-  const { data, isLoading, isFetched, error, isError } = useQuery({
+  const { data, isLoading, isFetched } = useQuery({
     queryKey: ["track", containerNumbers],
     queryFn: async () => {
       const response = await fetch(BASE_URL, {
@@ -24,5 +24,5 @@ export default function useTrack() {
   function setTrack(id) {
     setContainerNumbers(id);
   }
-  return { data, setTrack, isLoading, isFetched, error };
+  return { data, setTrack, isLoading, isFetched };
 }

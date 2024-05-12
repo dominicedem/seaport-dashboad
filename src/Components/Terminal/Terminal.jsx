@@ -33,7 +33,6 @@ const LoadingStyle = styled.div`
 function Terminal() {
   const { token } = useSelector((state) => state.appData);
   const { data, isLoading } = useTerminal(token);
-  console.log(data);
   return (
     <TerminalStyle className={data?.data.length > 7 && "scroll"}>
       <Table data={data?.data} column={3}>

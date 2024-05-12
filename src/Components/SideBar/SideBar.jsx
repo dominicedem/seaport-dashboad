@@ -4,8 +4,8 @@ import { MdDashboard } from "react-icons/md";
 import { PiSecurityCameraBold } from "react-icons/pi";
 import { GiAutoRepair } from "react-icons/gi";
 import { IoMdExit } from "react-icons/io";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   setMaintainance,
   setOverview,

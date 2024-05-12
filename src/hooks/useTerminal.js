@@ -16,6 +16,5 @@ export default function useTerminal(token) {
     },
   });
 
-  console.log(data);
   return { data, isLoading, isFetched };
 }
