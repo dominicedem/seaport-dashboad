@@ -106,7 +106,7 @@ const conStyle = {
 };
 
 function AppLayout() {
-  const [alert, setAlert] = useState(true);
+  const [alert, setAlert] = useState(false);
   const [data, setData] = useState("");
   const { notify } = useSelector((state) => state.appData);
   const dispatch = useDispatch();
