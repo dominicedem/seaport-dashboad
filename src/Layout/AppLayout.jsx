@@ -122,7 +122,7 @@ function AppLayout() {
     const socket = socketIOClient(ENDPOINT);
 
     socket.on("connect", () => {
-      console.log("WORKING");
+      // console.log("WORKING");
     });
 
     socket.on("container", (data) => {

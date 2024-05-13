@@ -44,6 +44,9 @@ const Row = styled.div`
 const Name = styled.span`
   font-size: 1.6rem;
   color: var(--ship_row_text_color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const Faulty = styled.p`
   font-size: 1.6rem;
